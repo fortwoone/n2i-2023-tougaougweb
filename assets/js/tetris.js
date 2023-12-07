@@ -85,6 +85,16 @@ const SCORE_VALUES = [
     1200 // Four lines or more
 ]
 
+const LEVEL_RHYTHM_DELAYS = [
+    403, // Normal speed
+    350, // 1.15x speed
+    310, // 1.3x speed
+    260, // 1.6x speed
+]
+
+let level = 0; // Current level
+let can_turn_piece = false; // To be set and unset after a while.
+
 // place the tetromino on the playfield
 function placeTetromino() {
     for (let row = 0; row < tetromino.matrix.length; row++) {
@@ -107,6 +117,12 @@ function placeTetromino() {
     for (let row = playfield.length - 1; row >= 0; ) {
         if (playfield[row].every(cell => !!cell)) {
             clears++;
+            lines_cleared++;
+            cleared_until_level++; // Increment that to increase the level every 10 lines
+            if (cleared_until_level >= 10){
+                cleared_until_level = 0;
+                cleared_level = 0;
+            }
             // drop every row above this one
             for (let r = row; r >= 0; r--) {
                 for (let c = 0; c < playfield[r].length; c++) {
@@ -149,6 +165,16 @@ const canvas = document.getElementById('game');
 const context = canvas.getContext('2d');
 const grid = 32;
 const tetrominoSequence = [];
+// const rhythm = new Audio('assets/sound/click.mp3');
+// rhythm.preload = "auto";
+const tetris = new Audio("assets/sound/nooff.mp3");
+tetris.preload = "auto";
+const tetris2 = new Audio("assets/sound/level2.mp3");
+tetris2.preload = "auto";
+const tetris3 = new Audio("assets/sound/level3.mp3");
+tetris3.preload = "auto";
+const tetris4 = new Audio("assets/sound/level4.mp3");
+tetris4.preload = "auto";
 
 // keep track of what is in every cell of the game using a 2d array
 // tetris playfield is 10x20, with a few rows offscreen
@@ -216,21 +242,28 @@ const colors = {
 
 let count = 0;
 let score = 0;
+let cleared_until_level = 0;
+let lines_cleared = 0;
 let tetromino = getNextTetromino();
 let rAF = null;  // keep track of the animation frame so we can cancel it
 let gameOver = false;
+let cleared_level = false;
 down = false;
 
+
+
+// Pad an object from the left using another string.
 function pad(pad, str) {
     if (typeof str === 'undefined')
         return pad;
     return (pad + str).slice(-pad.length);
 }
 
-prevTime = new Date().getTime();
+let prevTime = new Date().getTime();
 
 function update_score(){
     document.getElementById("score_display").innerHTML = pad("000000", score);
+    document.getElementById("line_count").innerHTML = pad("", lines_cleared);
 }
 
 // game loop
@@ -272,11 +305,9 @@ function loop() {
         // get the timestamp
         var time = new Date().getTime();
         // if time passed since prevTime is greater than 35ms
-        if (time - prevTime > 402.68456375) {
+        if (time - prevTime > LEVEL_RHYTHM_DELAYS[level]) {
             prevTime = time;
-            var audio = new Audio('assets/sound/click.mp3');
-            console.log("play");
-            audio.play();
+            // rhythm.play().then(x => console.log("Play"));
             tetromino.row++;
             count = 0;
 
@@ -318,7 +349,7 @@ document.addEventListener('keydown', function(e) {
     }
 
     // up arrow key (rotate)
-    if (e.which === 38) {
+    if (e.which === 38 && can_turn_piece) { // if not synced with the music, the player can't turn the piece
         const matrix = rotate(tetromino.matrix);
         if (isValidMove(matrix, tetromino.row, tetromino.col)) {
             tetromino.matrix = matrix;
@@ -354,7 +385,24 @@ document.addEventListener('keyup', function(e) {
     }
 });
 
+function can_turn(){
+    console.log("Can turn");
+    can_turn_piece = true;
+    document.getElementById("timing_indicator").className = "timing_active";
+}
 
+function cant_turn(){
+    console.log("Can't turn");
+    can_turn_piece = false;
+    document.getElementById("timing_indicator").className = "";
+}
+
+function set_event_listeners_for_current_level(){
+    clearInterval(can_turn);
+    clearInterval(cant_turn);
+    setInterval(can_turn, LEVEL_RHYTHM_DELAYS[level]);
+    setInterval(cant_turn, LEVEL_RHYTHM_DELAYS[level] + LEVEL_RHYTHM_DELAYS[level]);
+}
 
 function reset(){
 
@@ -368,12 +416,13 @@ function reset(){
     }
 
     tetromino = getNextTetromino();
-    //var tetris = new Audio('assets/sound/tetris.mp3');
+
+    set_event_listeners_for_current_level();
 
     rAF = requestAnimationFrame(loop);
     score = 0;
-    var tetris = new Audio("assets/sound/nooff.mp3")
-    tetris.play();
+    // TODO : augmenter la vitesse et le rythme au fil du jeu
+    tetris.play().then(x => console.log("Playing the OST"));
     console.log("play");
     gameOver = false;
 

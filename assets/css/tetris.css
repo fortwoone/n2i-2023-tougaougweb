@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
+
 html, body {
     height: 100%;
     width:100%;
+    font-family:"Noto Sans", sans-serif;
     margin: 0;
 }
 
@@ -27,11 +30,27 @@ canvas {
     border: 1px solid white;
 }
 
+.game_info{
+    text-align:center;
+}
+
 .score_display{
     display:flex;
     flex-direction:column;
     flex-wrap:wrap;
     justify-content:center;
+}
+
+#timing_indicator{
+    width:60px;
+    height:60px;
+    color:black;
+}
+
+.timing_active{
+    width:60px;
+    height:60px;
+    background-color:white;
 }
 
 /*#score{*/
