@@ -1,0 +1,39 @@
+html, body {
+    height: 100%;
+    width:100%;
+    margin: 0;
+}
+
+body {
+    background: black;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    color:white;
+}
+
+.game_div{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.gm_canvas{
+    display:flex;
+    flex-direction:column;
+}
+
+canvas {
+    border: 1px solid white;
+}
+
+.score_display{
+    display:flex;
+    flex-direction:column;
+    flex-wrap:wrap;
+    justify-content:center;
+}
+
+/*#score{*/
+/*    text-align:center;*/
+/*}*/
