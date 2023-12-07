@@ -20,7 +20,7 @@
 / Défi CS Group 2023 - La cyber c’est super /
 / Jeu Thèmes ! /
 / À votre service ! /
-/ Ne rien faire, c’est parfois mieux /
+/ Jeu de rythme /
 
 # Installation
 python -m venv env
