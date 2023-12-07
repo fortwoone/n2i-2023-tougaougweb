@@ -1,17 +1,20 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"  data-bs-theme="blue" >
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome to My Website</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
-</head>
-<body>
+    {% block theme %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+    {% endblock %}
+    </head>
+<body class="bg-base text-dark">
     <header>
         <h1>Header dans web/templates/base.html</h1>
     </header>
+    <button class="btn btn-primary" >HEY</button>
     {% block content %}{% endblock %}
     <footer>
         <h1>Footer dans web/templates/base.html</h1>

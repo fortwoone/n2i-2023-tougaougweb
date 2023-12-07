@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
+{%  block theme %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base_ap.css' %}">
+{% endblock %}
 {% block content %}
     <h1>Welcome to My Website</h1>
     <p>This is the home page.</p>
