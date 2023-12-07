@@ -25,15 +25,23 @@
 # Installation
 python -m venv env
 
-## Sous windows
+## Activation de l'environnement python
+### Sous windows
 ./env/Scripts/activate
-## Sous linux
+### Sous linux
 source ./env/bin/activate
 
+## Installation des prerequis
 python -m pip install -r requirements.txt
 
+## mise en place de la base de donnée
 python manage.py makemigrations
 python manage.py migrate
+
+## Executer le serveur
+
+python manage.py runserver
+
 
 # Modification du bootstrap
 
