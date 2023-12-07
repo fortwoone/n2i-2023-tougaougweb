@@ -22,6 +22,30 @@
 / À votre service ! /
 / Ne rien faire, c’est parfois mieux /
 
+# Installation
+python -m venv env
+
+## Sous windows
+./env/Scripts/activate
+## Sous linux
+source ./env/bin/activate
+
+python -m pip install -r requirements.txt
+
+python manage.py makemigrations
+python manage.py migrate
+
+# Modification du bootstrap
+
+npm install bootstrap
+npm install -g node-sass
+
+## Modifier les fichier dans web/scss/ficher.scss
+
+node-sass web/scss -o web/static/css
+
+
+
 <h4>Source Utiles</h4>
 <p>** GOOGLE DOCS **</p> https://docs.google.com/document/d/1989DYFBjDfcngHXITHGCwywM_wczryXLWCzjnvaF9hI/edit?usp=sharing
 <p>** FIGMA **</p> https://www.figma.com/file/90QHsNkTdIHbF3mNTHXzwy/Bootstrap-5-UI-Kit-(Community)?type=design&node-id=4488%3A2&mode=design&t=oRAY7IUc7jRy2BpL-1
