@@ -19,7 +19,7 @@
 / 404 Tetris /
 / Défi CS Group 2023 - La cyber c’est super /
 / Jeu Thèmes ! /
-/ À votre service ! /
+/ Local Legends with Ubisoft Bordeaux /
 / Jeu de rythme /
 
 # Installation
