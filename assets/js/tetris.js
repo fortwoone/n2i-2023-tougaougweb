@@ -246,7 +246,7 @@ function loop() {
         // if time passed since prevTime is greater than 35ms
         if (time - prevTime > 402.68456375) {
             prevTime = time;
-            var audio = new Audio('click.mp3');
+            var audio = new Audio('assets/sound/click.mp3');
             console.log("play");
             audio.play();
             tetromino.row++;
@@ -338,10 +338,10 @@ function reset(){
     }
 
     tetromino = getNextTetromino();
-    //var tetris = new Audio('./tetris.mp3');
+    //var tetris = new Audio('assets/sound/tetris.mp3');
 
     rAF = requestAnimationFrame(loop);
-    var tetris = new Audio("./nooff.mp3")
+    var tetris = new Audio("assets/sound/nooff.mp3")
     tetris.play();
     console.log("play");
     gameOver = false;
