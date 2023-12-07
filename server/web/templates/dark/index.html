@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block theme %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base_ap.css' %}">
+{% endblock %}
+{% block content %}
+    <h1>DARK PAGE</h1>
+    
+    <a class="btn btn-primary" href="/" >LIGHT</a>
+    <p>This is the home page.</p>
+    <h2>Pages dans web/templates/dark/index.html</h2>
+    <img src="{% static 'img/test.png' %}" alt="accueil">
+{% endblock %}
