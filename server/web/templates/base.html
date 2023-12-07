@@ -1,5 +1,5 @@
 {% load static %}
-
+{% load account %}
 <!DOCTYPE html>
 <html lang="en"  data-bs-theme="blue" >
 <head>
@@ -9,10 +9,41 @@
     {% block theme %}
         <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
     {% endblock %}
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     </head>
 <body class="bg-base text-dark">
     <header>
-        <h1>Header dans web/templates/base.html</h1>
+        <nav class="navbar navbar-expand-lg bg-primary">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#">Navbar</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="navbar-nav me-auto mb-2 mb-lg-0">
+                </div>
+                <div class="d-flex" role="search">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                          <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="#">Link</a>
+                        </li>
+                        {% if user.is_authenticated %}
+                        <li class="nav-item">
+                          <a class="nav-link" href="/accounts/logout" aria-disabled="true">Déconnexion</a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                          <a class="nav-link" href="/accounts/login" aria-disabled="true">Connexion</a>
+                        </li>
+                        {% endif %}
+                      </ul>
+                </div>
+              </div>
+            </div>
+          </nav>
     </header>
     {% block content %}{% endblock %}
     <footer>
