@@ -87,13 +87,56 @@ const SCORE_VALUES = [
 
 const LEVEL_RHYTHM_DELAYS = [
     403, // Normal speed
-    350, // 1.15x speed
-    310, // 1.3x speed
-    260, // 1.6x speed
+    268, // 1.5x speed
+    201, // 2x speed
+    134, // 3x speed
 ]
 
-let level = 0; // Current level
-let can_turn_piece = false; // To be set and unset after a while.
+let level = 1; // Current level
+
+function advance_one_level(){
+    for (let row = -2; row < 20; row++) {
+        playfield[row] = [];
+
+        for (let col = 0; col < 10; col++) {
+            playfield[row][col] = 0;
+        }
+    }
+    tetromino = getNextTetromino();
+
+    switch (level){
+        case 1:
+            tetris.pause();
+            break;
+        case 2:
+            tetris2.pause();
+            break;
+        case 3:
+            tetris3.pause();
+            break;
+        case 4:
+            tetris4.pause();
+            break;
+    }
+    level++;
+    if (level > 4){
+        level = 1;
+    }
+    switch (level){
+        case 1:
+            tetris.play().then(x => console.log("Playing OST"));
+            break;
+        case 2:
+            tetris2.play().then(x => console.log("Playing OST"));
+            break;
+        case 3:
+            tetris3.play().then(x => console.log("Playing OST"));
+            break;
+        case 4:
+            tetris4.play().then(x => console.log("Playing OST"));
+            break;
+    }
+}
 
 // place the tetromino on the playfield
 function placeTetromino() {
@@ -119,10 +162,6 @@ function placeTetromino() {
             clears++;
             lines_cleared++;
             cleared_until_level++; // Increment that to increase the level every 10 lines
-            if (cleared_until_level >= 10){
-                cleared_until_level = 0;
-                cleared_level = 0;
-            }
             // drop every row above this one
             for (let r = row; r >= 0; r--) {
                 for (let c = 0; c < playfield[r].length; c++) {
@@ -136,6 +175,11 @@ function placeTetromino() {
     }
 
     tetromino = getNextTetromino();
+
+    if (cleared_until_level >= 10){
+        cleared_until_level %= 10;
+        advance_one_level();
+    }
 
     if (!!clears){
         return SCORE_VALUES[clears - 1];
@@ -169,12 +213,16 @@ const tetrominoSequence = [];
 // rhythm.preload = "auto";
 const tetris = new Audio("assets/sound/nooff.mp3");
 tetris.preload = "auto";
+tetris.loop = true;
 const tetris2 = new Audio("assets/sound/level2.mp3");
 tetris2.preload = "auto";
+tetris2.loop = true;
 const tetris3 = new Audio("assets/sound/level3.mp3");
 tetris3.preload = "auto";
+tetris3.loop = true;
 const tetris4 = new Audio("assets/sound/level4.mp3");
 tetris4.preload = "auto";
+tetris4.loop = true;
 
 // keep track of what is in every cell of the game using a 2d array
 // tetris playfield is 10x20, with a few rows offscreen
@@ -305,7 +353,7 @@ function loop() {
         // get the timestamp
         var time = new Date().getTime();
         // if time passed since prevTime is greater than 35ms
-        if (time - prevTime > LEVEL_RHYTHM_DELAYS[level]) {
+        if (time - prevTime > LEVEL_RHYTHM_DELAYS[level-1]) {
             prevTime = time;
             // rhythm.play().then(x => console.log("Play"));
             tetromino.row++;
@@ -349,7 +397,7 @@ document.addEventListener('keydown', function(e) {
     }
 
     // up arrow key (rotate)
-    if (e.which === 38 && can_turn_piece) { // if not synced with the music, the player can't turn the piece
+    if (e.which === 38) { // if not synced with the music, the player can't turn the piece
         const matrix = rotate(tetromino.matrix);
         if (isValidMove(matrix, tetromino.row, tetromino.col)) {
             tetromino.matrix = matrix;
@@ -385,25 +433,6 @@ document.addEventListener('keyup', function(e) {
     }
 });
 
-function can_turn(){
-    console.log("Can turn");
-    can_turn_piece = true;
-    document.getElementById("timing_indicator").className = "timing_active";
-}
-
-function cant_turn(){
-    console.log("Can't turn");
-    can_turn_piece = false;
-    document.getElementById("timing_indicator").className = "";
-}
-
-function set_event_listeners_for_current_level(){
-    clearInterval(can_turn);
-    clearInterval(cant_turn);
-    setInterval(can_turn, LEVEL_RHYTHM_DELAYS[level]);
-    setInterval(cant_turn, LEVEL_RHYTHM_DELAYS[level] + LEVEL_RHYTHM_DELAYS[level]);
-}
-
 function reset(){
 
     // populate the empty state
@@ -416,8 +445,6 @@ function reset(){
     }
 
     tetromino = getNextTetromino();
-
-    set_event_listeners_for_current_level();
 
     rAF = requestAnimationFrame(loop);
     score = 0;

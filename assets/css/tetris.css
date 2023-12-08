@@ -41,17 +41,6 @@ canvas {
     justify-content:center;
 }
 
-#timing_indicator{
-    width:60px;
-    height:60px;
-    color:black;
-}
-
-.timing_active{
-    width:60px;
-    height:60px;
-    background-color:white;
-}
 
 /*#score{*/
 /*    text-align:center;*/
