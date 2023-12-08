@@ -1,3 +1,10 @@
+#logo_header {
+  background-image: url(/static/img/logo_base.svg);
+}
+#logo_header:hover{
+    background-image: url(/static/img/logo_apo.svg);
+}
+
 @import 'node_modules/bootstrap/scss/_functions';
 @import 'node_modules/bootstrap/scss/_variables';
 

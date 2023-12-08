@@ -50,7 +50,7 @@ questions = {
         ]
     },
 
-    "question4": {
+"question4": {
         "q": "Combien de centimètres le niveau moyen de la mer a-t-il augmenté entre 1901 et 2018 ?",
         "r": [
             {"nom": "15cm", "isTrue": false},
@@ -64,8 +64,8 @@ questions = {
         "q": "Quelles sont les conséquences directes du réchauffement climatique mentionnées dans le rapport du GIEC ?",
         "r": [
             {"nom": "Diminution de la biodiversité", "isTrue": false},
-            {"nom": "Augmentation de la consommation d'énergie", "isTrue": true},
-            {"nom": "Élévation du niveau de la mer, fonte des glaces, augmentation de la fréquence et de l'intensité des événements météorologiques extrêmes", "isTrue": false},
+            {"nom": "Augmentation de la consommation d'énergie", "isTrue": false},
+            {"nom": "Élévation du niveau de la mer, fonte des glaces, augmentation de la fréquence et de l'intensité des événements météorologiques extrêmes", "isTrue": true},
             {"nom": "Diminution de la pollution atmosphérique", "isTrue": false}
         ]
     },
@@ -74,8 +74,8 @@ questions = {
         "q": "Quel est l'un des effets du réchauffement climatique qui a un impact sur les régions côtières ?",
         "r": [
             {"nom": "Diminution des tempêtes", "isTrue": false},
-            {"nom": "Augmentation de la disponibilité en eau douce", "isTrue": true},
-            {"nom": "Élévation du niveau de la mer", "isTrue": false},
+            {"nom": "Augmentation de la disponibilité en eau douce", "isTrue": false},
+            {"nom": "Élévation du niveau de la mer", "isTrue": true},
             {"nom": "Diminution des précipitations", "isTrue": false}
         ]
     },
@@ -114,8 +114,8 @@ questions = {
         "q": "Quelle est l'affirmation du GIEC concernant l'influence humaine sur les événements de chaleur extrême ?",
         "r": [
             {"nom": "Les événements de chaleur extrême ne sont pas influencés par l'activité humaine", "isTrue": false},
-            {"nom": "Les événements de chaleur extrême sont probablement liés à l'activité humaine", "isTrue": true},
-            {"nom": "Les événements de chaleur extrême sont impossibles sans l'impact humain sur le climat", "isTrue": false},
+            {"nom": "Les événements de chaleur extrême sont probablement liés à l'activité humaine", "isTrue": false},
+            {"nom": "Les événements de chaleur extrême sont impossibles sans l'impact humain sur le climat", "isTrue": true},
             {"nom": "Les événements de chaleur extrême sont moins fréquents à cause de l'activité humaine", "isTrue": false}
         ]
     },
@@ -123,8 +123,8 @@ questions = {
 "question11": {
         "q": "Comment le rapport du GIEC classe-t-il les stratégies d'atténuation des émissions de gaz à effet de serre ?",
         "r": [
-            {"nom": "Éviter - Changer - Améliorer", "isTrue": false},
-            {"nom": "Accepter - Ignorer - Améliorer", "isTrue": true},
+            {"nom": "Éviter - Changer - Améliorer", "isTrue": true},
+            {"nom": "Accepter - Ignorer - Améliorer", "isTrue": false},
             {"nom": "Favoriser - Réduire - Améliorer", "isTrue": false},
             {"nom": "Éliminer - Modifier - Accroître", "isTrue": false}
         ]
@@ -133,23 +133,42 @@ questions = {
 "question12": {
         "q": "Quelle est l'une des technologies spéculatives mentionnées dans le rapport qui présente des risques pour la biodiversité, la sécurité et les droits humains ?",
         "r": [
-            {"nom": "BECCS (bioénergie, captage et stockage du carbone)", "isTrue": false},
-            {"nom": "Éolienne offshore", "isTrue": true},
+            {"nom": "BECCS (bioénergie, captage et stockage du carbone)", "isTrue": true},
+            {"nom": "Éolienne offshore", "isTrue": false},
             {"nom": "Panneaux solaires", "isTrue": false},
             {"nom": "Centrales nucléaires", "isTrue": false}
         ]
     },
 
 "question13": {
-        "q": "Quel est vexempotre moyen de transport principal ?",
+        "q": "Combien de sites protégés notre pays compte-t-il désormais sur une liste mondiale de 59 sites ?",
         "r": [
-            {"nom": "voiture", "isTrue": false},
-            {"nom": "moto", "isTrue": true},
-            {"nom": "vélo", "isTrue": false},
-            {"nom": "train", "isTrue": false}
+            {"nom": "15 sites", "isTrue": false},
+            {"nom": "22 sites", "isTrue": true},
+            {"nom": "33 sites", "isTrue": false},
+            {"nom": "47 sites", "isTrue": false}
         ]
     },
 
+"question14": {
+        "q": " Quelles actions sont entreprises pour lutter contre la pollution plastique et promouvoir le bien-être animal ?",
+        "r": [
+            {"nom": "Rien n'est fait pour lutter contre ces problèmes", "isTrue": false},
+            {"nom": "Des actions pour limiter l'usage du plastique et améliorer la protection des animaux", "isTrue": true},
+            {"nom": "Uniquement des campagnes de sensibilisation", "isTrue": false},
+            {"nom": "L'abandon des politiques environnementales", "isTrue": false}
+        ]
+    },
+
+"question15": {
+        "q": "Dans quoi investissent de nombreux pays pour favoriser une transition vers des énergies plus propres ?",
+        "r": [
+            {"nom": "Dans l'énergie fossile", "isTrue": false},
+            {"nom": "Dans l'énergie nucléaire", "isTrue": false},
+            {"nom": "Dans les énergies renouvelables comme le solaire, l'éolien et l'hydraulique", "isTrue": true},
+            {"nom": "Dans les énergies traditionnelles comme le charbon", "isTrue": false}
+        ]
+    },
     
 };
 
@@ -203,7 +222,7 @@ function nextQuestion() {
                 //apocalypse
                 resltTitle.innerHTML = "Vous avez obtenu " + score + "/13";
                 resultText.innerHTML = "Vous avez obtenu un score catastrophique, vous êtes un danger pour la planète ! \n Suite à vos actions la planéte a explosée !!!!!\n ";
-                
+                set_mode("apocalypse");
             }else{
                 //pas apocalypse
                 resltTitle.innerHTML = "Vous avez obtenu " + score + "/13";

@@ -1,62 +1,64 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<div class="container-fluid d-grid p-5">
+<div class="container-fluid d-grid p-5">  <!-- TODO big changer la maxi couleur -->
     <div class="container-fluid row text-center">
-        <h1 class="col">MAXI TITLE</h1>
+        <h1 class="col">Les possibilitées pour lutter contre le réchauffement climatique</h1>
     </div>
     <div class="row align-items-center">
         <div class="col ps-5">
             <div class="container-fluid justify-content-center">
-                <h2>Quelque définitions utiles avant de commencer :</h2>
-                <div class="container-fluid d-grid">
+                <h2 class="text-center">Quelque définitions utiles avant de commencer :</h2>
+                <div>
                     <div class="row">
-                        <div class="col card me-3">
-                            <h3 class="card-title">Le climat, c'est quoi ?</h3>
+                        <div class="col card p-3 m-1">
+                            <h3 class="card-title">Le climat c'est quoi ?</h3>
                             <p>
                                 La notion de "climat" désigne l'ensemble des conditions météorologiques moyennes sur
                                 une longue période, comme la température, l'humidité, les précipitations, etc.
-                                En d'autres termes, c'est une vision globale des conditions atmosphériques dans une région donnée.
+                                En d'autres termes, c'est une vision globale des conditions atmosphériques dans une
+                                région donnée.
                             </p>
                         </div>
-                        <div class="col card ms-3">
-                            <h3 class="card-title">L'effet de serre, c'est quoi ?</h3>
+                        <div class="col card p-3 m-1">
+                            <h3 class="card-title">L'effet de serre c'est quoi ?</h3>
                             <p>
-                                Le système terrestre est en équilibre entre l’énergie solaire reçue et les radiations
-                                renvoyées vers l’espace, le gaz à effet de serre forme une “barrière” permettant de retenir
-                                la chaleur provenant du soleil. De la même façon qu’une serre qui retient la chaleur à l’aide des parois de verre.
+                                Le système terrestre est en équilibre entre l’énergie solaire reçue et les
+                                radiations
+                                renvoyées vers l’espace, le gaz à effet de serre forme une “barrière” permettant de
+                                retenir
+                                la chaleur provenant du soleil. De la même façon qu’une serre qui retient la chaleur
+                                à l’aide des parois de verre.
 
                             </p>
                         </div>
                     </div>
-                    <br><br>
-                    <div class="container-fluid d-grid">
-                        <div class="row">
-                            <div class="col card me-3">
-                                <h3 class="card-title">Quel est le rôle de l'effet de serre ?</h3>
-                                <p>
-                                    L’effet de serre permet de réguler la température terrestre en maintenant
-                                    une température stable à +15°C, sans l’effet de serre il ferait -18°C.
-                                    Il est présent en faible quantité dans l’atmosphère et la moindre modification de celle-ci
-                                    peut avoir des conséquences sur la température moyenne globale
+                    <div class="row">
+                        <div class="col card p-3 m-1">
+                            <h3 class="card-title">Quel est le rôle de l'effet de serre ?</h3>
+                            <p>
+                                L’effet de serre permet de réguler la température terrestre en maintenant
+                                une température stable à +15°C, sans l’effet de serre il ferait -18°C.
+                                Il est présent en faible quantité dans l’atmosphère et la moindre modification de
+                                celle-ci
+                                peut avoir des conséquences sur la température moyenne globale
 
-                                </p>
-                            </div>
-                            <div class="col card ms-3">
-                                <h3 class="card-title">Le GIEC c'est quoi ?</h3>
-                                <p>
-                                    Le GIEC (Groupe d’experts intergouvernemental sur l’évolution du climat) est un organisme
-                                    de l’ONU chargé d’évaluer, à travers la publication régulière de rapports,
-                                    l’ensemble des connaissances scientifiques relatives au changement climatique.
-                                </p>
-                            </div>
+                            </p>
+                        </div>
+                        <div class="col card p-3 m-1">
+                            <h3 class="card-title">Le GIEC c'est quoi ?</h3>
+                            <p>
+                                Le GIEC (Groupe d’experts intergouvernemental sur l’évolution du climat) est un
+                                organisme
+                                de l’ONU chargé d’évaluer, à travers la publication régulière de rapports,
+                                l’ensemble des connaissances scientifiques relatives au changement climatique.
+                            </p>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
-        <img src="{% static 'img/planeteenfeu.jpg' %}" alt="fireearth" class="img-fluid col">
+        <img src="{% static 'img/planete.jpg' %}" alt="earth" class="img-fluid col">
     </div>
 </div>
 
@@ -70,7 +72,7 @@
         </p>
         <a href="/dark" class="btn btn-secondary text-dark row">Explorer les conséquences...</a>
     </div>
-    <p>Ou continuez à défiler pour constater les efforts de l'homme pour améliorer les choses.</p>
+    <p>Ou continuez à déffiler pour constater les efforts de l'homme pour améliorer les choses.</p>
 </div>
 
 <div class="container-fluid d-grid flex-column p-5">
@@ -81,10 +83,10 @@
             <p>
                 Malgré toutes les mauvaises nouvelles que nous entendons sur le changement climatique,
                 le rapport du GIEC souligne qu’il existe de nombreuses solutions dans tous les secteurs
-                pour réduire les émissions de moitié d'ici à 2030.
+                pour réduire les émissions de moitié d'ici 2030.
             </p>
             <br>
-            <h3>L'une des meilleures solutions pour réduire les émissions de gaz à effet de serre</h3>
+            <h3>L'une des meilleures solution pour réduire les émissions de gaz à effet de serre</h3>
             <br>
             <p>
                 Le rapport du GIEC montre que si nous modifions nos habitudes de consommation et de production, il est possible
@@ -97,7 +99,7 @@
 
     <div class="container-fluid row align-items-center pt-3">
         <div class="container-fluid justify-content-center col p-5">
-            <h3>De vraies et de fausses solutions pour l’élimination du carbone</h3>
+            <h3>De vrai et fausses solution pour l’élimination du carbone</h3>
             <p>
                 L'atténuation du changement climatique implique aussi l'élimination du carbone existant dans l'atmosphère.
                 Cela peut se faire par la plantation d'arbres ou l'utilisation de technologies de capture et de stockage du carbone.
@@ -111,7 +113,6 @@
 
             </p>
         </div>
-        <!--<img src="{% static 'img/placeholder.jpg' %}" alt="placeholder" class="img-fluid col">-->
     </div>
 </div>
 
@@ -119,15 +120,13 @@
     <div class="card-body pt-5 pb-5 col">
         <h1 class="card-title row">Comment réduire son impact sur le climat</h1>
         <p class="card-text row">
-            Le plus simple pour réduire ses émissions est déja d’être au courant de notre impact,
+            Le plus simple pour réduire ses émissions est déja d’etre au courrant de notre impact
             cliquez sur le bouton ci-dessous pour calculer votre impact sur le climat.
         </p>
         <a href="/calculateur" class="btn btn-primary text-light row">Calculer votre impact</a>
     </div>
     <p>Ou continuez votre lecture avec les mesures entreprises à échelle mondiale</p>
 </div>
-
-<!--finito-->
 
 <div class="container-fluid d-grid flex-column p-5">
     <div class="container-fluid row align-items-center pt-3">
@@ -178,5 +177,5 @@
         </div>
     </div>
 </div>
-
+<!--finito-->
 {% endblock %}
