@@ -1,0 +1,8 @@
+#logo_header {
+  background-image: url(/static/img/logo_base.svg);
+  height: 64px;
+  aspect-ratio: 1/1;
+  background-size: contain; }
+
+#logo_header:hover {
+  background-image: url(/static/img/logo_apo.svg); }
