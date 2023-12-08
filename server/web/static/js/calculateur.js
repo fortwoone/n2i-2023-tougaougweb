@@ -1,7 +1,7 @@
 
 
 
-calculateur_form = document.getElementById("calculateur_form");
+calculateurForm = document.getElementById("calculateur_form");
 // questions pour estimer les émissions de gaz à effet de serre 
 
 questions = {
@@ -61,40 +61,76 @@ questions = {
     },
 };
 
-questionNumber = 1;
-resultat = {
+let questionNumber = 1;
+const resultat = {};
 
-}
+function setQuestions() {
+    function showNextQuestion() {
+        const currentQuestion = document.getElementById("question" + questionNumber);
+        const nextQuestion = document.getElementById("question" + (questionNumber + 1));
 
-function setQuestions(){
-    function addRadio(reponseList){
-        console.log(reponseList);
-        result = ""
-        for (let i = 0; i < reponseList.length; i++) {
-            result += '<div><input type="radio" name="question'+ questionNumber +'" value="'+ reponseList[i]["nom"] +'" id="question'+ questionNumber +'_'+ i +'">'+
-            '<label for="question'+ questionNumber +'_'+ i +'">'+ reponseList[i]["nom"] +'</label></div>';
+        if (nextQuestion) {
+            currentQuestion.classList.add("d-none");
+            nextQuestion.classList.remove("d-none");
+            questionNumber++;
+        } else {
+            // detect if button already exists
+            const submitButton = document.querySelector("#calculateur_form button[type='submit']");
+            if (submitButton) return
+            calculateurForm.innerHTML += '<button type="submit">Calculer</button>';
+            calculateurForm.innerHTML += '<input type="hidden" name="questionNumber" value="' + questionNumber + '">';
         }
-        return result;
     }
-    for ( questionNumber = 1; questionNumber <= Object.keys(questions).length; questionNumber++) {
-        calculateur_form.innerHTML += '<div id="question'+questionNumber+'" '+  +' ><label>'+questions["question" + questionNumber]["q"]+'</label>'+
-        addRadio(questions["question" + questionNumber]["r"])
-        +'</div>';     
+
+    function handleRadioClick(e) {
+        if (e.target.parentElement.parentElement.id !== "calculateur_form") {
+            const questionId = e.target.parentElement.parentElement.id;
+            const questionIndex = questionId.replace("question", "");
+            resultat["question" + questionIndex] = e.target.value;
+            showNextQuestion();
+        }
     }
-    
-    const question = document.getElementById("question"+questionNumber);
-    for (const radio of question.children) {
-        radio.addEventListener("click", function(e){
-            //e.target.checked = true;
-            resultat["question"+questionNumber] = e.target.id;
-            nextQuestion();
-        });
+
+    for (let i = 1; i <= Object.keys(questions).length; i++) {
+        const question = questions["question" + i];
+        const radioButtons = question.r.map((option, index) =>
+            '<div><input type="radio" name="question' + i + '" value="' + option.nom + '" id="question' + i + '_' + index + '">' +
+            '<label for="question' + i + '_' + index + '">' + option.nom + '</label></div>'
+        );
+
+        calculateurForm.innerHTML += '<fieldset id="question' + i + '" ' + (i !== 1 ? 'class="d-none"' : '') + '><label>' + question.q + '</label>' +
+            radioButtons.join('') +
+            '</fieldset>';
     }
-    questionNumber++;
-    if (questionNumber > Object.keys(questions).length){
-        calculateur_form.innerHTML += '<button type="submit">Calculer</button>';
-        calculateur_form.innerHTML += '<input type="hidden" name="questionNumber" value="'+ questionNumber +'">';
-        return;
-    }
+
+    calculateurForm.addEventListener("change", handleRadioClick);
 }
+
 setQuestions();
+
+calculateurForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    console.log(resultat);
+    // remove the current question and show the result
+    calculateurForm.innerHTML = '<div id="resultat"></div>';
+    const resultDiv = document.getElementById("resultat");
+    let points = 0;
+    for (let i = 1; i <= Object.keys(resultat).length; i++) {
+        const question = resultat["question" + i];
+        const questionPoints = questions["question" + i].r.find(option => option.nom === question).points;
+        points += questionPoints;
+    }
+
+    let message = "";
+    if (points < 100) {
+        message = "Vous avez une empreinte carbone trop élevée, vous devez faire des efforts pour la réduire.";
+    
+    } else if (points < 200) {
+        message = "Vous pouvez encore faire des efforts pour réduire votre empreinte carbone.";
+    } else {
+        message = "Vous êtes un bon citoyen, continuez ainsi !";
+        }
+
+    resultDiv.innerHTML = '<p>Votre empreinte carbone est de <strong>' + points + '</strong> points.</p>' +
+        '<p>' + message + '</p>';
+});
