@@ -215,8 +215,8 @@ function placeTetromino() {
 
     tetromino = getNextTetromino();
 
-    if (cleared_until_level >= 10){
-        cleared_until_level %= 10;
+    if (cleared_until_level >= 10 / (1 + (level === 1 ? 1 : 0))){
+        cleared_until_level %= 10 / (1 + (level === 1 ? 1 : 0));
         advance_one_level();
     }
 
@@ -244,16 +244,13 @@ function showGameOver() {
         context.fillText('GAME OVER!', canvas.width / 2, canvas.height / 2);
     }
     else{
-        context.fillText("Félicitations ! Vous avez perdu votre temps !\nSi vous voulez en perdre encore plus, vous pouvez tenter d'atteindre le meilleur score !", canvas.width/2, canvas.height/2);
+        alert("Félicitations ! Vous avez perdu votre temps !\nSi vous voulez en perdre encore plus, vous pouvez tenter d'atteindre le meilleur score !");
+        // context.fillText("Félicitations ! Vous avez perdu votre temps !\nSi vous voulez en perdre encore plus, vous pouvez tenter d'atteindre le meilleur score !", canvas.width/2, canvas.height/2);
     }
     return 0; // Doing that to ensure we're not jipping the score display
 }
 
-<<<<<<< HEAD:server/web/static/js/tetris.js
-const canvas = document.getElementById('game'); 
-const context = canvas.getContext('2d');
-=======
->>>>>>> 0e726bd71e7b29eefbd36d979cee73cbc73cc365:assets/js/tetris.js
+
 const grid = 32;
 const tetrominoSequence = [];
 const tetris = new Audio("static/sound/nooff.mp3");
