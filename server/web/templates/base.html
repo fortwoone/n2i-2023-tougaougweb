@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="{% static 'css/global.css' %}">
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </head>
-<body>
+<body class="min-vh-100 d-flex flex-column justify-content-between ">
 <header>
     <nav class="navbar navbar-expand-lg bg-primary">
         <div class="container-fluid">
@@ -53,10 +53,13 @@
         </div>
     </nav>
 </header>
+<main>
+    
 {% block content %}{% endblock %}
-<footer>
-    <div class="bg-primary ">
-        Footer
+</main>
+<footer class=" bg-primary">
+    <div class="container">
+        Crée par les TougaougWeb
         <button class="d-inline m-2 btn btn-secondary-light" id="mode_switcher"></button>
     </div>
 </footer>
