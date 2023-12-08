@@ -10,3 +10,7 @@ def dark(request):
     # get the urser
     user = request.user
     return render(request, 'dark/index.html', {'user':user})
+
+def question(request):
+    user = request.user
+    return render(request, 'quizz/question.html', {'user':user})
