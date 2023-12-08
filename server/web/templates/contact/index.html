@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="container">
+        <h6>Nous contacter</h6>
+        <form>
+            <div class="row g-1">
+                <div class="col-12 col-md-6">
+                    <div>
+                        <label class="form-label">Votre e-mail</label>
+                        <input type="email" class="form-control" placeholder="email@example.com" required>
+                    </div>
+                    <div>
+                        <label class="form-label">Votre nom</label>
+                        <input class="form-control" type="text" required>
+                    </div>
+                    <div>
+                        <label class="form-label">Votre prénom</label>
+                        <input class="form-control" type="text" required>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6">
+                    <label class="form-label">Votre message</label>
+                    <textarea class="form-control" required></textarea>
+                </div>
+                <div class="row g-1">
+                    <div class="col">
+                        <input class="btn btn-primary" type="submit" value="Envoyer">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}
