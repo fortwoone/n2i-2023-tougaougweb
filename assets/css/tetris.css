@@ -8,6 +8,18 @@ html, body {
     flex-direction:column;
 }
 
+figure{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+}
+
+#tetris_logo{
+    width:50%;
+    height:50%;
+}
+
 body {
     background: black;
     display: flex;

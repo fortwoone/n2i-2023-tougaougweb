@@ -2,6 +2,37 @@
 
 // get a random integer between the range of [min,max]
 // @see https://stackoverflow.com/a/1527820/2124254
+
+const canvas = document.getElementById('game');
+const context = canvas.getContext('2d');
+
+class Water{
+    constructor() {
+        this.height = 0;
+        this.row_delta = 0;
+        this.tetromino_count = 0;
+    }
+
+    reset(){
+        this.height = 0;
+        this.row_delta = 0;
+        this.tetromino_count = 0;
+    }
+
+    rise_water(){
+        this.row_delta++;
+        this.tetromino_count = 0;
+        this.height += 32 + 8 * (!!this.row_delta ? 0 : 1);
+    }
+
+    render_water(){
+        context.fillStyle = "#0DCAF07F";
+        context.fillRect(0, 640-this.height, 320, this.height);
+    }
+}
+
+let water = new Water();
+
 function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -34,7 +65,7 @@ function getNextTetromino() {
     const col = playfield[0].length / 2 - Math.ceil(matrix[0].length / 2);
 
     // I starts on row 21 (-1), all others start on row 22 (-2)
-    const row = name === 'I' ? -1 : -2;
+    const row = (name === 'I' ? -1 : -2) - water.row_delta;
 
     return {
         name: name,      // name of the piece (L, O, etc.)
@@ -63,7 +94,7 @@ function isValidMove(matrix, cellRow, cellCol) {
                 // outside the game bounds
                 cellCol + col < 0 ||
                 cellCol + col >= playfield[0].length ||
-                cellRow + row >= playfield.length-water.row_delta ||
+                cellRow + row >= playfield.length ||
                 // collides with another piece
                 playfield[cellRow + row][cellCol + col])
             ) {
@@ -138,6 +169,8 @@ function advance_one_level(){
             break;
     }
 
+    water.reset();
+
     if (rhythm_enabled){
         set_event_listeners_for_current_level();
     }
@@ -163,7 +196,7 @@ function placeTetromino() {
     let clears = 0; // Number of row clears with the tetromino
 
     // check for line clears starting from the bottom and working our way up
-    for (let row = playfield.length - water.row_delta - 1; row >= 0; ) {
+    for (let row = playfield.length - 1; row >= 0; ) {
         if (playfield[row].every(cell => !!cell)) {
             clears++;
             lines_cleared++;
@@ -217,8 +250,6 @@ function showGameOver() {
     return 0; // Doing that to ensure we're not jipping the score display
 }
 
-const canvas = document.getElementById('game');
-const context = canvas.getContext('2d');
 const grid = 32;
 const tetrominoSequence = [];
 const tetris = new Audio("assets/sound/nooff.mp3");
@@ -325,42 +356,6 @@ function set_rhythm(){
 
 document.getElementById("rhythm_enabled").onclick = set_rhythm;
 
-class Water{
-    constructor() {
-        this.height = 8;
-        this.row_delta = 0;
-        this.tetromino_count = 0;
-    }
-
-    reset(){
-        this.height = 8;
-        this.row_delta = 0;
-        this.tetromino_count = 0;
-    }
-
-    rise_water(){
-        this.row_delta++;
-        this.tetromino_count = 0;
-        this.height += 40;
-
-        for (let r = 1; r < 19; r++){
-            playfield[r-1] = playfield[r];
-        }
-        for (let j = 20-this.row_delta; j<20;j++){
-            for (let k = 0; k < playfield[j].length; k++){
-                playfield[j][k] = 0; // Clear the lowest row since all blocks should float
-            }
-        }
-    }
-
-    render_water(){
-        context.fillStyle = "#0DCAF07F";
-        context.fillRect(0, 640-this.height, 320, this.height);
-    }
-}
-
-let water = new Water();
-
 // Pad an object from the left using another string.
 function pad(pad, str) {
     if (typeof str === 'undefined')
@@ -391,8 +386,8 @@ function cant_turn(){
 function set_event_listeners_for_current_level(){
     clearInterval(can_turn);
     clearInterval(cant_turn);
-    setInterval(can_turn, LEVEL_RHYTHM_DELAYS[level]);
-    setInterval(cant_turn, LEVEL_RHYTHM_DELAYS[level] + LEVEL_RHYTHM_DELAYS[level]/2);
+    setInterval(can_turn, LEVEL_RHYTHM_DELAYS[level]*2);
+    setInterval(cant_turn, LEVEL_RHYTHM_DELAYS[level]*1.5);
 }
 
 // game loop
@@ -409,7 +404,7 @@ function loop() {
                 context.fillStyle = colors[name];
 
                 // drawing 1 px smaller than the grid creates a grid effect
-                context.fillRect(col * grid, row * grid, grid-1, grid-1);
+                context.fillRect(col * grid, (row-water.row_delta) * grid, grid-1, grid-1);
             }
         }
     }
@@ -459,9 +454,9 @@ function loop() {
         for (let row = 0; row < tetromino.matrix.length; row++) {
             for (let col = 0; col < tetromino.matrix[row].length; col++) {
                 if (tetromino.matrix[row][col]) {
-
                     // drawing 1 px smaller than the grid creates a grid effect
-                    context.fillRect((tetromino.col + col) * grid, (tetromino.row + row) * grid, grid-1, grid-1);
+                    context.fillRect((tetromino.col + col) * grid, (tetromino.row + row - water.row_delta) * grid, grid-1, grid-1);
+
                 }
             }
         }
@@ -568,11 +563,11 @@ window.onload = on_load;
 
 function instructions(){
     alert("Pour jouer, appuyez sur Gauche / Droite pour déplacer les tétrominos, Bas\n" +
-        "                pour les faire tomber, Haut pour les faire tourner ! Si vous activez le mode rythme,\n" +
-        "                vous devez appuyer en rythme sur Haut pour faire tourner les pièces (elles ne tourneront pas\n" +
-        "                sinon), mais vous gagnerez 20 points supplémentaires par pièce qui atterrit ! Oh, et un autre conseil,\n" +
-        "                évitez de trop faire monter le niveau de l'eau en plaçant aléatoirement les tétrominos, vous pourriez avoir de\n" +
-        "                mauvaises surprises...")
+        "pour les faire tomber, Haut pour les faire tourner ! Si vous activez le mode rythme,\n" +
+        "vous devez appuyer en rythme sur Haut pour faire tourner les pièces (elles ne tourneront pas\n" +
+        "sinon), mais vous gagnerez 20 points supplémentaires par pièce qui atterrit ! Oh, et un autre conseil,\n" +
+        "évitez de trop faire monter le niveau de l'eau en plaçant aléatoirement les tétrominos, vous pourriez avoir de\n" +
+        "mauvaises surprises...")
 }
 
 // start the game
