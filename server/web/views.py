@@ -22,3 +22,8 @@ def calculateur(request):
 def question(request):
     user = request.user
     return render(request, 'quizz/question.html', {'user': user})
+
+def handler404(request, exception):
+    return render(request, '404/index.html', status=404)
+def goTo404(request):
+    return render(request, '404.html', status=404)

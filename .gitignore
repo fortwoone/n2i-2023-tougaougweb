@@ -2,3 +2,5 @@ env
 node_modules/
 *.pyc
 .idea/
+server/static/
+ser

@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
+
+/* html, body { */
+    /* height: 100%; */
+    /* width:100%; */
+    /* font-family:"Noto Sans", sans-serif; */
+    /* margin: 0; */
+    /* flex-direction:column; */
+/* } */
+
+#tetris {
+    background: black;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    color:white;
+}
+
+.game_div{
+    display:flex;
+    width:100%;
+    justify-content:space-evenly;
+    align-items:center;
+}
+
+.gm_canvas{
+    display:flex;
+    flex-direction:column;
+}
+
+canvas {
+    border: 1px solid white;
+}
+
+.game_info{
+    text-align:center;
+}
+
+.score_display{
+    display:flex;
+    flex-direction:column;
+    flex-wrap:wrap;
+    justify-content:center;
+}
+
+#timing_indicator{
+    width:60px;
+    height:60px;
+    color:black;
+    border-radius: 10px;
+}
+
+.timing_active{
+    width:60px;
+    height:60px;
+    background-color:white;
+}
+
+/*#score{*/
+/*    text-align:center;*/
+/*}*/
+
+
+
+/* WAVES */
+#404section{
+    overflow: hidden;
+}
+
+
+body{
+    overflow: hidden;
+}
+
+.ocean { 
+    height: 5%;
+    width:100%;
+    position:absolute;
+    bottom:0;
+    left:0;
+    background: #015871;
+  }
+  
+  .wave {
+    background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/85486/wave.svg) repeat-x; 
+    position: absolute;
+    top: -198px;
+    width: 6400px;
+    height: 198px;
+    animation: wave 7s cubic-bezier( 0.36, 0.45, 0.63, 0.53) infinite;
+    transform: translate3d(0, 0, 0);
+  }
+  
+  .wave:nth-of-type(2) {
+    top: -175px;
+    animation: wave 7s cubic-bezier( 0.36, 0.45, 0.63, 0.53) -.125s infinite, swell 7s ease -1.25s infinite;
+    opacity: 1;
+  }
+  
+  @keyframes wave {
+    0% {
+      margin-left: 0;
+    }
+    100% {
+      margin-left: -1600px;
+    }
+  }
+  
+  @keyframes swell {
+    0%, 100% {
+      transform: translate3d(0,-25px,0);
+    }
+    50% {
+      transform: translate3d(0,5px,0);
+    }
+  }

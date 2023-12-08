@@ -217,20 +217,20 @@ function showGameOver() {
     return 0; // Doing that to ensure we're not jipping the score display
 }
 
-const canvas = document.getElementById('game');
+const canvas = document.getElementById('game'); 
 const context = canvas.getContext('2d');
 const grid = 32;
 const tetrominoSequence = [];
-const tetris = new Audio("assets/sound/nooff.mp3");
+const tetris = new Audio("static/sound/nooff.mp3");
 tetris.preload = "auto";
 tetris.loop = true;
-const tetris2 = new Audio("assets/sound/level2.mp3");
+const tetris2 = new Audio("static/sound/level2.mp3");
 tetris2.preload = "auto";
 tetris2.loop = true;
-const tetris3 = new Audio("assets/sound/level3.mp3");
+const tetris3 = new Audio("static/sound/level3.mp3");
 tetris3.preload = "auto";
 tetris3.loop = true;
-const tetris4 = new Audio("assets/sound/level4.mp3");
+const tetris4 = new Audio("static/sound/level4.mp3");
 tetris4.preload = "auto";
 tetris4.loop = true;
 
@@ -559,12 +559,26 @@ function reset(){
 
 }
 
-function on_load(){
+function sendalert(){
     alert("Oups ! On dirait que la page que vous cherchez n'existe pas...\nEn attendant, vous pouvez toujours jouer à Tetris !\n Qui sait, quelque chose pourrait se produire si vous dépassez les 404 points...");
     set_rhythm();
 }
 
-window.onload = on_load;
+
+section404 = document.getElementById("404section");
+boutonJouer = document.getElementById("boutonJouer");
+sectionTetris = document.getElementById("tetris");
+
+boutonJouer.addEventListener("click", ()=>{
+    section404.classList.add("d-none")
+    sectionTetris.classList.remove("d-none")
+    body = document.getElementsByTagName("body")[0];
+    body.style.backgroundColor = "#000000";
+
+    boutonJouer.parentElement.style.display = "none";
+});
+
+//window.onload = on_load;
 
 function instructions(){
     alert("Pour jouer, appuyez sur Gauche / Droite pour déplacer les tétrominos, Bas\n" +
