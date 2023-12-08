@@ -249,11 +249,7 @@ function showGameOver() {
     return 0; // Doing that to ensure we're not jipping the score display
 }
 
-<<<<<<< HEAD:server/web/static/js/tetris.js
-const canvas = document.getElementById('game'); 
-const context = canvas.getContext('2d');
-=======
->>>>>>> 0e726bd71e7b29eefbd36d979cee73cbc73cc365:assets/js/tetris.js
+
 const grid = 32;
 const tetrominoSequence = [];
 const tetris = new Audio("static/sound/nooff.mp3");

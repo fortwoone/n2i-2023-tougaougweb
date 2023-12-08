@@ -4,3 +4,4 @@ node_modules/
 .idea/
 server/static/
 ser
+server/staticfiles

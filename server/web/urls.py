@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import index,dark, calculateur,contact,question, goTo404
+from .views import index,dark, calculateur,contact,question, goTo404, parti1, parti2
 from django.conf.urls import handler404
 
 urlpatterns = [
@@ -11,6 +11,8 @@ urlpatterns = [
     path('question', question, name='question'),
     path("handler404", handler404, name="404"),
     path("goTo404", goTo404, name="goTo404"),
+    path("ubisoft/parti1", parti1, name="parti1"),
+    path("ubisoft/parti2", parti2, name="parti2"),
 ]
 
 

@@ -27,3 +27,12 @@ def handler404(request, exception):
     return render(request, '404/index.html', status=404)
 def goTo404(request):
     return render(request, '404.html', status=404)
+
+
+def parti1(request):
+    user = request.user
+    return render(request, 'Ubisoft/parti1.html', {'user': user})
+
+def parti2(request):
+    user = request.user
+    return render(request, 'Ubisoft/parti2.html', {'user': user})
