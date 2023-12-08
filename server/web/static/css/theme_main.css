@@ -1,3 +1,9 @@
+#logo_header {
+  background-image: url(/static/img/logo_base.svg); }
+
+#logo_header:hover {
+  background-image: url(/static/img/logo_apo.svg); }
+
 /*!
    * Bootstrap  v5.3.2 (https://getbootstrap.com/)
    * Copyright 2011-2023 The Bootstrap Authors
