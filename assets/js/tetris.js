@@ -119,6 +119,7 @@ function advance_one_level(){
             break;
     }
     level++;
+    actual_level++;
     if (level > 4){
         level = 1;
     }
@@ -292,10 +293,10 @@ let count = 0;
 let score = 0;
 let cleared_until_level = 0;
 let lines_cleared = 0;
+let actual_level = 0;
 let tetromino = getNextTetromino();
 let rAF = null;  // keep track of the animation frame so we can cancel it
 let gameOver = false;
-let cleared_level = false;
 down = false;
 
 
@@ -312,6 +313,7 @@ let prevTime = new Date().getTime();
 function update_score(){
     document.getElementById("score_display").innerHTML = pad("000000", score);
     document.getElementById("line_count").innerHTML = pad("", lines_cleared);
+    document.getElementById("level_no").innerHTML = pad("", actual_level);
 }
 
 // game loop
