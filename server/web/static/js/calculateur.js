@@ -3,7 +3,7 @@
 
 calculateurForm = document.getElementById("calculateur_form");
 // questions pour estimer les émissions de gaz à effet de serre 
-
+backButton = document.getElementById("backButton")
 const questionNumberDisplay = document.getElementById("questionNumberDisplay")
 questions = {
     "question1": {
@@ -66,14 +66,43 @@ let questionNumber = 1;
 const resultat = {};
 
 function setQuestions() {
+    backButton.addEventListener("click",showPrevQuestion)
+    
     function showNextQuestion() {
         const currentQuestion = document.getElementById("question" + questionNumber);
         const nextQuestion = document.getElementById("question" + (questionNumber + 1));
+        questionNumberDisplay.innerText =questionNumber+1
+        backButton.classList.remove("opacity-0")
 
         if (nextQuestion) {
             currentQuestion.classList.add("d-none");
             nextQuestion.classList.remove("d-none");
             questionNumber++;
+        } else {
+            // detect if button already exists
+            const submitButton = document.querySelector("#calculateur_form button[type='submit']");
+            if (submitButton) return;
+            
+            currentQuestion.classList.add("d-none");
+
+            const buttonHTML = '<button type="submit" class="btn btn-primary">Calculer</button>';
+            const inputHTML = '<input type="hidden" name="questionNumber" value="' + questionNumber + '">';
+
+            calculateurForm.innerHTML += buttonHTML + inputHTML;
+        }
+    }
+    function showPrevQuestion(){
+        
+        if (questionNumber == 2) backButton.classList.add("opacity-0")
+        const currentQuestion = document.getElementById("question" + questionNumber);
+        const nextQuestion = document.getElementById("question" + (questionNumber -1 ));
+        questionNumberDisplay.innerText =questionNumber-1
+        
+
+        if (nextQuestion) {
+            currentQuestion.classList.add("d-none");
+            nextQuestion.classList.remove("d-none");
+            questionNumber--;
         } else {
             // detect if button already exists
             const submitButton = document.querySelector("#calculateur_form button[type='submit']");
