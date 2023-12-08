@@ -1,28 +1,34 @@
 <!DOCTYPE html>
 <html lang="fr">
     <head>
-        <title>Basic Tetris HTML Game</title>
+        <title>Page non trouvée</title>
         <meta charset="UTF-8">
         <script src="assets/js/tetris.js" defer></script>
         <link rel="stylesheet" href="assets/css/tetris.css">
     </head>
     <body>
+        <button onclick="instructions();">Instructions</button>
         <div class="game_div">
             <div class="gm_canvas">
                 <canvas width="320" height="640" id="game"></canvas>
-                <button onclick="reset();">Start</button>
+                <button onclick="reset();">Commencer</button>
             </div>
             <div class="game_info">
+                <div>
+                    <label for="rhythm_enabled">Mode rythme :</label>
+                    <input type="checkbox" id="rhythm_enabled"/>
+                </div>
+                <div id="timing_indicator">LÀ !</div>
                 <div class="level_counter">
-                    <p>Current Level:</p>
+                    <p>Niveau :</p>
                     <p id="level_no">1</p>
                 </div>
                 <div class="score_display">
-                    <p id="score_p">Score:</p>
+                    <p id="score_p">Score :</p>
                     <p id="score_display">000000</p>
                 </div>
                 <div>
-                    <p>Lines cleared:</p>
+                    <p>Lignes effacées :</p>
                     <p id="line_count">0</p>
                 </div>
             </div>

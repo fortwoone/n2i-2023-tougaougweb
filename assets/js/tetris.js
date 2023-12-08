@@ -63,7 +63,7 @@ function isValidMove(matrix, cellRow, cellCol) {
                 // outside the game bounds
                 cellCol + col < 0 ||
                 cellCol + col >= playfield[0].length ||
-                cellRow + row >= playfield.length ||
+                cellRow + row >= playfield.length-water.row_delta ||
                 // collides with another piece
                 playfield[cellRow + row][cellCol + col])
             ) {
@@ -137,17 +137,22 @@ function advance_one_level(){
             tetris4.play().then(x => console.log("Playing OST"));
             break;
     }
+
+    if (rhythm_enabled){
+        set_event_listeners_for_current_level();
+    }
 }
 
 // place the tetromino on the playfield
 function placeTetromino() {
+    let additional_points = rhythm_enabled ? 20 : 0; // Grant additional points if the player is using rhythm mode
     for (let row = 0; row < tetromino.matrix.length; row++) {
         for (let col = 0; col < tetromino.matrix[row].length; col++) {
             if (tetromino.matrix[row][col]) {
 
-                // game over if piece has any part offscreen
-                if (tetromino.row + row < 0) {
-                    return showGameOver();
+                // game over if piece has any part offscreen or the player got over the 404 threshold
+                if (tetromino.row + row < 0 || score >= 404) {
+                    return additional_points + showGameOver();
                 }
 
                 playfield[tetromino.row + row][tetromino.col + col] = tetromino.name;
@@ -184,9 +189,9 @@ function placeTetromino() {
     }
 
     if (!!clears){
-        return SCORE_VALUES[clears - 1];
+        return additional_points + SCORE_VALUES[clears - 1];
     }
-    return 0;
+    return additional_points;
 }
 
 // show the game over screen
@@ -203,7 +208,12 @@ function showGameOver() {
     context.font = '36px monospace';
     context.textAlign = 'center';
     context.textBaseline = 'middle';
-    context.fillText('GAME OVER!', canvas.width / 2, canvas.height / 2);
+    if (score < 404){
+        context.fillText('GAME OVER!', canvas.width / 2, canvas.height / 2);
+    }
+    else{
+        context.fillText("Félicitations ! Vous avez perdu votre temps !\nSi vous voulez en perdre encore plus, vous pouvez tenter d'atteindre le meilleur score !", canvas.width/2, canvas.height/2);
+    }
     return 0; // Doing that to ensure we're not jipping the score display
 }
 
@@ -211,8 +221,6 @@ const canvas = document.getElementById('game');
 const context = canvas.getContext('2d');
 const grid = 32;
 const tetrominoSequence = [];
-// const rhythm = new Audio('assets/sound/click.mp3');
-// rhythm.preload = "auto";
 const tetris = new Audio("assets/sound/nooff.mp3");
 tetris.preload = "auto";
 tetris.loop = true;
@@ -229,6 +237,7 @@ tetris4.loop = true;
 // keep track of what is in every cell of the game using a 2d array
 // tetris playfield is 10x20, with a few rows offscreen
 const playfield = [];
+let rhythm_enabled = false;
 
 // populate the empty state
 for (let row = -2; row < 20; row++) {
@@ -298,19 +307,33 @@ let actual_level = 0;
 let tetromino = getNextTetromino();
 let rAF = null;  // keep track of the animation frame so we can cancel it
 let gameOver = false;
+let can_turn_piece = false;
 down = false;
+
+function set_rhythm(){
+    if (gameOver){ // Prevent cheating
+        return;
+    }
+    rhythm_enabled = document.getElementById("rhythm_enabled").checked;
+    if (rhythm_enabled){
+        document.getElementById("timing_indicator").style.display = "flex";
+    }
+    else{
+        document.getElementById("timing_indicator").style.display = "none";
+    }
+}
+
+document.getElementById("rhythm_enabled").onclick = set_rhythm;
 
 class Water{
     constructor() {
         this.height = 8;
-        this.width = 320;
         this.row_delta = 0;
         this.tetromino_count = 0;
     }
 
     reset(){
         this.height = 8;
-        this.row_delta = 320;
         this.row_delta = 0;
         this.tetromino_count = 0;
     }
@@ -318,10 +341,15 @@ class Water{
     rise_water(){
         this.row_delta++;
         this.tetromino_count = 0;
-        this.height += 32;
+        this.height += 40;
 
         for (let r = 1; r < 19; r++){
             playfield[r-1] = playfield[r];
+        }
+        for (let j = 20-this.row_delta; j<20;j++){
+            for (let k = 0; k < playfield[j].length; k++){
+                playfield[j][k] = 0; // Clear the lowest row since all blocks should float
+            }
         }
     }
 
@@ -346,6 +374,25 @@ function update_score(){
     document.getElementById("score_display").innerHTML = pad("000000", score);
     document.getElementById("line_count").innerHTML = pad("", lines_cleared);
     document.getElementById("level_no").innerHTML = pad("", actual_level);
+}
+
+function can_turn(){
+    console.log("Can turn");
+    can_turn_piece = true;
+    document.getElementById("timing_indicator").className = "timing_active";
+}
+
+function cant_turn(){
+    console.log("Can't turn");
+    can_turn_piece = false;
+    document.getElementById("timing_indicator").className = "";
+}
+
+function set_event_listeners_for_current_level(){
+    clearInterval(can_turn);
+    clearInterval(cant_turn);
+    setInterval(can_turn, LEVEL_RHYTHM_DELAYS[level]);
+    setInterval(cant_turn, LEVEL_RHYTHM_DELAYS[level] + LEVEL_RHYTHM_DELAYS[level]/2);
 }
 
 // game loop
@@ -439,7 +486,7 @@ document.addEventListener('keydown', function(e) {
     }
 
     // up arrow key (rotate)
-    if (e.which === 38) { // if not synced with the music, the player can't turn the piece
+    if (e.which === 38 && (!rhythm_enabled || can_turn_piece)) { // if not synced with the music, the player can't turn the piece
         const matrix = rotate(tetromino.matrix);
         if (isValidMove(matrix, tetromino.row, tetromino.col)) {
             tetromino.matrix = matrix;
@@ -494,6 +541,11 @@ function reset(){
     }
 
     tetromino = getNextTetromino();
+    water.reset();
+    set_rhythm();
+    if (rhythm_enabled){
+        set_event_listeners_for_current_level();
+    }
 
     rAF = requestAnimationFrame(loop);
     score = 0;
@@ -505,6 +557,22 @@ function reset(){
     console.log("play");
     gameOver = false;
 
+}
+
+function on_load(){
+    alert("Oups ! On dirait que la page que vous cherchez n'existe pas...\nEn attendant, vous pouvez toujours jouer à Tetris !\n Qui sait, quelque chose pourrait se produire si vous dépassez les 404 points...");
+    set_rhythm();
+}
+
+window.onload = on_load;
+
+function instructions(){
+    alert("Pour jouer, appuyez sur Gauche / Droite pour déplacer les tétrominos, Bas\n" +
+        "                pour les faire tomber, Haut pour les faire tourner ! Si vous activez le mode rythme,\n" +
+        "                vous devez appuyer en rythme sur Haut pour faire tourner les pièces (elles ne tourneront pas\n" +
+        "                sinon), mais vous gagnerez 20 points supplémentaires par pièce qui atterrit ! Oh, et un autre conseil,\n" +
+        "                évitez de trop faire monter le niveau de l'eau en plaçant aléatoirement les tétrominos, vous pourriez avoir de\n" +
+        "                mauvaises surprises...")
 }
 
 // start the game
