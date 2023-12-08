@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to My Website</title>
+    <title>{% block title %}No title :({% endblock %}</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/font.css' %}">
     {% block theme %}
         <link rel="stylesheet" id="theme" type="text/css" href="{% static 'css/theme_main.css' %}">
@@ -33,18 +33,18 @@
                 <div class="d-flex" role="search">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                          <a class="nav-link active" aria-current="page" href="/calculateur">Calculer vos émissions</a>
+                          <a class="nav-link active text-background" aria-current="page" href="/calculateur">Calculer vos émissions</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
+                            <a class="nav-link text-background" href="#">Link</a>
                         </li>
                         {% if user.is_authenticated %}
                         <li class="nav-item">
-                            <a class="nav-link" href="/accounts/logout" aria-disabled="true">Déconnexion</a>
+                            <a class="nav-link text-background" href="/accounts/logout" aria-disabled="true">Déconnexion</a>
                         </li>
                         {% else %}
                         <li class="nav-item">
-                            <a class="nav-link" href="/accounts/login" aria-disabled="true">Connexion</a>
+                            <a class="nav-link text-background" href="/accounts/login" aria-disabled="true">Connexion</a>
                         </li>
                         {% endif %}
                     </ul>
@@ -55,8 +55,10 @@
 </header>
 {% block content %}{% endblock %}
 <footer>
-    <h1>Footer dans web/templates/base.html</h1>
-    <button class="btn btn-secondary-light" id="mode_switcher"></button>
+    <div class="bg-primary ">
+        Footer
+        <button class="d-inline m-2 btn btn-secondary-light" id="mode_switcher"></button>
+    </div>
 </footer>
 </body>
 </html>
