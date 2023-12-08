@@ -10,3 +10,8 @@ def dark(request):
     # get the urser
     user = request.user
     return render(request, 'dark/index.html', {'user':user})
+
+def calculateur(request):
+    # get the urser
+    user = request.user
+    return render(request, 'calculateur/index.html', {'user':user})
