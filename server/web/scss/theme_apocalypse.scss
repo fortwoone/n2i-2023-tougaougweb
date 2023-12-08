@@ -1,13 +1,46 @@
 @import 'node_modules/bootstrap/scss/_functions';
 @import 'node_modules/bootstrap/scss/_variables';
 
-$theme-colors: map-merge($theme-colors, (
-        primary: #BC1A12,
-        primary-light: #66211E,
-        secondary: #D66E19,
-        secondary-light: #D58D17,
-        background: #242321,
-        foreground : #EFEFEF,
-));
+$primary: #BC1A12;
+$primary-light: #66211E;
+$secondary: #D66E19;
+$secondary-light: #D58D17;
+$success: $green;
+$info: $cyan;
+$warning: $yellow;
+$danger: $red;
+
+$background: #242321;
+$foreground: #EFEFEF;
+
+$light: $foreground;
+$dark: $background;
+
+$theme-colors: (
+        primary: $primary,
+        primary-light: $primary-light,
+        secondary: $secondary,
+        secondary-light: $secondary-light,
+        background: $background,
+        foreground : $foreground,
+        success: $success,
+        info: $info,
+        warning: $warning,
+        danger: $danger,
+        light: $light,
+        dark: $dark
+);
+
+$body-text-align: null;
+$body-color: $foreground;
+$body-bg: $background;
+
+$body-secondary-bg: tint-color($background, 20%);
+
+$body-tertiary-bg: tint-color($background, 10%);
+
+$body-emphasis-color: $foreground;
+
+$border-color: $gray-700;
 
 @import 'node_modules/bootstrap/scss/bootstrap';
