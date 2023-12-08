@@ -3,7 +3,8 @@
 
 calculateurForm = document.getElementById("calculateur_form");
 // questions pour estimer les émissions de gaz à effet de serre 
-
+backButton = document.getElementById("backButton")
+const questionNumberDisplay = document.getElementById("questionNumberDisplay")
 questions = {
     "question1": {
         "q": "Quel est votre moyen de transport principal ?",
@@ -65,9 +66,13 @@ let questionNumber = 1;
 const resultat = {};
 
 function setQuestions() {
+    backButton.addEventListener("click",showPrevQuestion)
+    
     function showNextQuestion() {
         const currentQuestion = document.getElementById("question" + questionNumber);
         const nextQuestion = document.getElementById("question" + (questionNumber + 1));
+        questionNumberDisplay.innerText =questionNumber+1
+        backButton.classList.remove("opacity-0")
 
         if (nextQuestion) {
             currentQuestion.classList.add("d-none");
@@ -76,9 +81,37 @@ function setQuestions() {
         } else {
             // detect if button already exists
             const submitButton = document.querySelector("#calculateur_form button[type='submit']");
-            if (submitButton) return
-            calculateurForm.innerHTML += '<button type="submit">Calculer</button>';
-            calculateurForm.innerHTML += '<input type="hidden" name="questionNumber" value="' + questionNumber + '">';
+            if (submitButton) return;
+            
+            currentQuestion.classList.add("d-none");
+
+            const buttonHTML = '<button type="submit" class="btn btn-primary">Calculer</button>';
+            const inputHTML = '<input type="hidden" name="questionNumber" value="' + questionNumber + '">';
+
+            calculateurForm.innerHTML += buttonHTML + inputHTML;
+        }
+    }
+    function showPrevQuestion(){
+        
+        if (questionNumber == 2) backButton.classList.add("opacity-0")
+        const currentQuestion = document.getElementById("question" + questionNumber);
+        const nextQuestion = document.getElementById("question" + (questionNumber -1 ));
+        questionNumberDisplay.innerText =questionNumber-1
+        
+
+        if (nextQuestion) {
+            currentQuestion.classList.add("d-none");
+            nextQuestion.classList.remove("d-none");
+            questionNumber--;
+        } else {
+            // detect if button already exists
+            const submitButton = document.querySelector("#calculateur_form button[type='submit']");
+            if (submitButton) return;
+
+            const buttonHTML = '<button type="submit" class="btn btn-primary">Calculer</button>';
+            const inputHTML = '<input type="hidden" name="questionNumber" value="' + questionNumber + '">';
+
+            calculateurForm.innerHTML += buttonHTML + inputHTML;
         }
     }
 
@@ -94,11 +127,13 @@ function setQuestions() {
     for (let i = 1; i <= Object.keys(questions).length; i++) {
         const question = questions["question" + i];
         const radioButtons = question.r.map((option, index) =>
-            '<div><input type="radio" name="question' + i + '" value="' + option.nom + '" id="question' + i + '_' + index + '">' +
-            '<label for="question' + i + '_' + index + '">' + option.nom + '</label></div>'
+            '<div class="form-check">' +
+            '<input class="form-check-input" type="radio" name="question' + i + '" value="' + option.nom + '" id="question' + i + '_' + index + '">' +
+            '<label class="form-check-label" for="question' + i + '_' + index + '">' + option.nom + '</label></div>'
         );
 
-        calculateurForm.innerHTML += '<fieldset id="question' + i + '" ' + (i !== 1 ? 'class="d-none"' : '') + '><label>' + question.q + '</label>' +
+        calculateurForm.innerHTML += '<fieldset id="question' + i + '" class="' + (i !== 1 ? 'd-none' : '') + '">' +
+            '<legend>' + question.q + '</legend>' +
             radioButtons.join('') +
             '</fieldset>';
     }
@@ -112,7 +147,7 @@ calculateurForm.addEventListener("submit", function (e) {
     e.preventDefault();
     console.log(resultat);
     // remove the current question and show the result
-    calculateurForm.innerHTML = '<div id="resultat"></div>';
+    calculateurForm.innerHTML = '<div id="resultat" class="mt-3"></div>';
     const resultDiv = document.getElementById("resultat");
     let points = 0;
     for (let i = 1; i <= Object.keys(resultat).length; i++) {
@@ -123,14 +158,14 @@ calculateurForm.addEventListener("submit", function (e) {
 
     let message = "";
     if (points < 100) {
+        set_mode("apocalypse", "Apocalypse")
         message = "Vous avez une empreinte carbone trop élevée, vous devez faire des efforts pour la réduire.";
-    
     } else if (points < 200) {
         message = "Vous pouvez encore faire des efforts pour réduire votre empreinte carbone.";
     } else {
         message = "Vous êtes un bon citoyen, continuez ainsi !";
-        }
+    }
 
     resultDiv.innerHTML = '<p>Votre empreinte carbone est de <strong>' + points + '</strong> points.</p>' +
-        '<p>' + message + '</p>';
+        '<p class="lead">' + message + '</p>';
 });
