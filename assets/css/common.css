@@ -1,0 +1,26 @@
+i {
+    ---size: 24px;
+    font-family: 'Material Symbols Outlined';
+    font-weight: 400;
+    font-style: normal;
+    font-size: var(---size);
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    font-feature-settings: "liga";
+    -webkit-font-smoothing: antialiased;
+    vertical-align: middle;
+    text-align: center;
+    overflow: hidden;
+    inline-size: var(---size);
+    min-inline-size: var(---size);
+    block-size: var(---size);
+    min-block-size: var(---size);
+    box-sizing: content-box;
+    line-height: normal;
+}
