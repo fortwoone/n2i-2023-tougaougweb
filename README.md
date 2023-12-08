@@ -25,20 +25,20 @@
 # Installation
 python -m venv env
 
-## Activation de l'environnement python
-### Sous windows
+## Activation de l'environnement Python
+### Sous Windows
 ./env/Scripts/activate
-### Sous linux
+### Sous Linux
 source ./env/bin/activate
 
-## Installation des prerequis
+## Installation des prérequis
 python -m pip install -r requirements.txt
 
-## mise en place de la base de donnée
+## Mise en place de la base de données
 python manage.py makemigrations
 python manage.py migrate
 
-## Executer le serveur
+## Exécuter le serveur
 
 python manage.py runserver
 
@@ -48,7 +48,7 @@ python manage.py runserver
 npm install bootstrap
 npm install -g node-sass
 
-## Modifier les fichier dans web/scss/ficher.scss
+## Modifier les fichiers dans web/scss/ficher.scss
 
 node-sass web/scss -o web/static/css
 
