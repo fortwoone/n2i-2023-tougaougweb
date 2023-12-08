@@ -1,86 +1,58 @@
-{% extends 'base.html' %}
 {% load static %}
-{% block theme %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/base_ap.css' %}">
-{% endblock %}
-{% block content %}
-<div class="container-fluid d-grid p-5">  <!-- TODO big changer la maxi couleur -->
-    <div class="row align-items-center">
-        <div class="col ps-5">
-            <div class="container-fluid justify-content-center">
-                <h1 class="">On va tous crever en vrai :c</h1>
-                <p>
-                    Le réchauffement climatique, résultat de l'augmentation des gaz à effet de serre liée aux activités humaines,
-                    bouleverse les équilibres naturels de la Terre.
-                    <br><br>
-                    Entre phénomènes météorologiques extrêmes, montée du niveau de la mer et perturbations de la biodiversité,
-                    cette menace nécessite des actions urgentes et globales pour atténuer son impact et assurer un avenir durable à notre planète.
-                </p>
+{% load account %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to My Website</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/font.css' %}">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}">
+    <link id="theme" rel="stylesheet" type="text/css" href="{% static 'css/theme_.css' %}">
+    <script src="{% static 'js/mode.js' %}" defer></script>
+    <link rel="stylesheet" href="{% static 'css/global.css' %}">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</head>
+<body class="bg-background text-foreground">
+<header>
+    <nav class="navbar navbar-expand-lg bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/" id="logo_header"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="navbar-nav me-auto mb-2 mb-lg-0">
+                </div>
+                <div class="d-flex" role="search">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Link</a>
+                        </li>
+                        {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/accounts/logout" aria-disabled="true">Déconnexion</a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/accounts/login" aria-disabled="true">Connexion</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
             </div>
         </div>
-        <img src="{% static 'img/planeteenfeu.jpg' %}" alt="fireearth" class="img-fluid col">
-    </div>
-</div>
-
-<div class="card d-grid bg-primary-light ps-3">
-    <div class="card-body text-dark col pt-5 pb-5">
-        <h1 class="card-title row">Comment réduire son impact sur le climat</h1>
-        <p class="card-text row">Le plus simple pour réduire ses émissions est déja d’etre au courrant de notre impact </p>
-        <a href="http://localhost:63342/n2i-2023-tougaougweb/pageConsequence.html?_ijt=uvc2v38mpk5jstt674sgco7r8f#" class="btn btn-secondary text-dark row">Calculer votre impact</a>
-    </div>
-</div>
-
-<div class="container-fluid d-grid flex-column p-5">
-    <div class="container-fluid row align-items-center pb-3">
-        <img src="{% static 'img/placeholder.jpg' %}" alt="placeholder" class="img-fluid col">
-        <div class="container-fluid justify-content-center p-5 col">
-            <h2>L’impact de l’Homme sur le climat</h2>
-            <p>
-                L'impact de l'homme sur le climat est indéniable et profondément significatif. Les activités humaines,
-                notamment la combustion massive de combustibles fossiles, la déforestation et l'industrialisation,
-                libèrent d'énormes quantités de gaz à effet de serre dans l'atmosphère.
-                <br><br>
-                Ces gaz, tels que le dioxyde de carbone (CO2) et le méthane (CH4), créent une couche isolante qui retient la chaleur du soleil,
-                provoquant ainsi le réchauffement climatique. Les conséquences de cette perturbation climatique sont multiples :
-                des événements météorologiques extrêmes tels que les ouragans et les vagues de chaleur,
-                des modifications des régimes de précipitations, la fonte des glaciers et des calottes glaciaires,
-                et des impacts dévastateurs sur les écosystèmes et la biodiversité.
-                <br><br>
-                En prenant conscience de cette influence néfaste, il devient impératif d'adopter des pratiques durables,
-                de réduire les émissions de gaz à effet de serre et de promouvoir des solutions respectueuses de l'environnement
-                pour atténuer les effets du changement climatique.
-            </p>
-        </div>
-    </div>
-
-    <div class="container-fluid row align-items-center pt-3">
-        <div class="container-fluid justify-content-center col p-5">
-            <h2>L’impact de l’Homme sur le climat</h2>
-            <p>
-                L'impact de l'homme sur le climat est indéniable et profondément significatif. Les activités humaines,
-                notamment la combustion massive de combustibles fossiles, la déforestation et l'industrialisation,
-                libèrent d'énormes quantités de gaz à effet de serre dans l'atmosphère.
-                <br><br>
-                Ces gaz, tels que le dioxyde de carbone (CO2) et le méthane (CH4), créent une couche isolante qui retient la chaleur du soleil,
-                provoquant ainsi le réchauffement climatique. Les conséquences de cette perturbation climatique sont multiples :
-                des événements météorologiques extrêmes tels que les ouragans et les vagues de chaleur,
-                des modifications des régimes de précipitations, la fonte des glaciers et des calottes glaciaires,
-                et des impacts dévastateurs sur les écosystèmes et la biodiversité.
-                <br><br>
-                En prenant conscience de cette influence néfaste, il devient impératif d'adopter des pratiques durables,
-                de réduire les émissions de gaz à effet de serre et de promouvoir des solutions respectueuses de l'environnement
-                pour atténuer les effets du changement climatique.
-            </p>
-        </div>
-        <img src="{% static 'img/placeholder.jpg' %}" alt="placeholder" class="img-fluid col">
-    </div>
-</div>
-
-<div class="card d-grid bg-dark ps-3">
-    <div class="card-body pt-5 pb-5 col">
-        <h1 class="card-title row">Comment réduire son impact sur le climat</h1>
-        <p class="card-text row">Le plus simple pour réduire ses émissions est déja d’etre au courrant de notre impact </p>
-        <a href="http://localhost:63342/n2i-2023-tougaougweb/pageConsequence.html?_ijt=uvc2v38mpk5jstt674sgco7r8f#" class="btn btn-primary text-dark row">Calculer votre impact</a>
-    </div>
-</div>
-{% endblock %}
+    </nav>
+</header>
+{% block content %}{% endblock %}
+<footer>
+    <h1>Footer dans web/templates/base.html</h1>
+    <button class="btn btn-secondary-light" id="mode_switcher"></button>
+</footer>
+</body>
+</html>
