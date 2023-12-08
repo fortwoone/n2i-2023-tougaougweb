@@ -2,17 +2,58 @@
 {% load static %}
 {% block content %}
 <div class="container-fluid d-grid p-5">  <!-- TODO big changer la maxi couleur -->
+    <div class="container-fluid row text-center">
+        <h1 class="col">MAXI TITLE</h1>
+    </div>
     <div class="row align-items-center">
         <div class="col ps-5">
             <div class="container-fluid justify-content-center">
-                <h1 class="">On va tous crever en vrai :c</h1>
-                <p>
-                    Le réchauffement climatique, résultat de l'augmentation des gaz à effet de serre liée aux activités humaines,
-                    bouleverse les équilibres naturels de la Terre.
+                <h2>Quelque definitions utiles avant de commancer :</h2>
+                <div class="container-fluid d-grid">
+                    <div class="row">
+                        <div class="col card me-3">
+                            <h3 class="card-title">Le climat c'est quoi ?</h3>
+                            <p>
+                                La notion de "climat" désigne l'ensemble des conditions météorologiques moyennes sur
+                                une longue période, comme la température, l'humidité, les précipitations, etc.
+                                En d'autres termes, c'est une vision globale des conditions atmosphériques dans une région donnée.
+                            </p>
+                        </div>
+                        <div class="col card ms-3">
+                            <h3 class="card-title">L'effet de serre c'est quoi ?</h3>
+                            <p>
+                                Le système terrestre est en équilibre entre l’énergie solaire reçue et les radiations
+                                renvoyées vers l’espace, le gaz à effet de serre forme une “barrière” permettant de retenir
+                                la chaleur provenant du soleil. De la même façon qu’une serre qui retient la chaleur à l’aide des parois de verre.
+
+                            </p>
+                        </div>
+                    </div>
                     <br><br>
-                    Entre phénomènes météorologiques extrêmes, montée du niveau de la mer et perturbations de la biodiversité,
-                    cette menace nécessite des actions urgentes et globales pour atténuer son impact et assurer un avenir durable à notre planète.
-                </p>
+                    <div class="container-fluid d-grid">
+                        <div class="row">
+                            <div class="col card me-3">
+                                <h3 class="card-title">Quel est le rôle de l'effet de serre ?</h3>
+                                <p>
+                                    L’effet de serre permet de réguler la température terrestre en maintenant
+                                    une température stable à +15°C, sans l’effet de serre il ferait -18°C.
+                                    Il est présent en faible quantité dans l’atmosphère et la moindre modification de celle-ci
+                                    peut avoir des conséquences sur la température moyenne globale
+
+                                </p>
+                            </div>
+                            <div class="col card ms-3">
+                                <h3 class="card-title">Le GIEC c'est quoi ?</h3>
+                                <p>
+                                    Le GIEC (Groupe d’experts intergouvernemental sur l’évolution du climat) est un organisme
+                                    de l’ONU chargé d’évaluer, à travers la publication régulière de rapports,
+                                    l’ensemble des connaissances scientifiques relatives au changement climatique.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
         <img src="{% static 'img/planeteenfeu.jpg' %}" alt="fireearth" class="img-fluid col">
@@ -21,12 +62,17 @@
 
 <div class="card d-grid bg-primary-light ps-3">
     <div class="card-body text-dark col pt-5 pb-5">
-        <h1 class="card-title row">Comment réduire son impact sur le climat</h1>
-        <p class="card-text row">Le plus simple pour réduire ses émissions est déja d’etre au courrant de notre impact </p>
-        <a href="http://localhost:63342/n2i-2023-tougaougweb/pageConsequence.html?_ijt=uvc2v38mpk5jstt674sgco7r8f#" class="btn btn-secondary text-dark row">Calculer votre impact</a>
+        <h1 class="card-title row">Qui est responsable ?</h1>
+        <p class="card-text row">
+            Dès son premier rapport en 1990, le GIEC a étudié l’hypothèse disant que les humains sont responsables du
+            réchauffement climatique et l’a confirmé en 2021.<br>
+            Les activités humaines sont, sans aucun doute, responsables du réchauffement climatique.
+        </p>
+        <a href="/dark" class="btn btn-secondary text-dark row">Explorer les conséquences...</a>
     </div>
+    <p>Ou continuez à déffiler pour constater les efforts de l'homme pour améliorer les choses.</p>
 </div>
-
+<!--finito-->
 <div class="container-fluid d-grid flex-column p-5">
     <div class="container-fluid row align-items-center pb-3">
         <img src="{% static 'img/placeholder.jpg' %}" alt="placeholder" class="img-fluid col">
