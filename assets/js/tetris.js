@@ -1,8 +1,5 @@
 // https://tetris.fandom.com/wiki/Tetris_Guideline
 
-// get a random integer between the range of [min,max]
-// @see https://stackoverflow.com/a/1527820/2124254
-
 const canvas = document.getElementById('game');
 const context = canvas.getContext('2d');
 
@@ -33,6 +30,8 @@ class Water{
 
 let water = new Water();
 
+// get a random integer between the range of [min,max]
+// @see https://stackoverflow.com/a/1527820/2124254
 function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
