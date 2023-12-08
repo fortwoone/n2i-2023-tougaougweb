@@ -4,10 +4,80 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/base_ap.css' %}">
 {% endblock %}
 {% block content %}
-    <h1>DARK PAGE</h1>
-    
-    <a class="btn btn-primary" href="/" >LIGHT</a>
-    <p>This is the home page.</p>
-    <h2>Pages dans web/templates/dark/index.html</h2>
-    <img src="{% static 'img/test.png' %}" alt="accueil">
+    <div class="container-fluid d-flex p-5 text-inter">  <!-- TODO big changer la maxi couleur -->
+        <div class="container d-flex flex-column justify-content-center ps-5">
+            <h1 class="">On va tous crever en vrai :c</h1>
+            <p>
+                Le réchauffement climatique, résultat de l'augmentation des gaz à effet de serre liée aux activités humaines,<br>
+                bouleverse les équilibres naturels de la Terre.<br>
+                <br>
+                Entre phénomènes météorologiques extrêmes, montée du niveau de la mer et perturbations de la biodiversité, <br>
+                cette menace nécessite des actions urgentes et globales pour atténuer son impact et assurer un avenir durable à notre planète.<br>
+            </p>
+        </div>
+        <img src="{% static 'img/planeteenfeu.jpg' %}" alt="fireearth" class="img-fluid ">
+    </div>
+
+    <div class="card d-flex bg-primary-light">
+        <div class="card-body text-dark pt-5 pb-5">
+            <h1 class="card-title">Comment réduire son impact sur le climat</h1>
+            <p class="card-text">Le plus simple pour réduire ses émissions est déja d’etre au courrant de notre impact </p>
+            <a href="http://localhost:63342/n2i-2023-tougaougweb/pageConsequence.html?_ijt=uvc2v38mpk5jstt674sgco7r8f#" class="btn btn-secondary text-dark">Calculer votre impact</a>
+
+        </div>
+    </div>
+
+    <div class="container-fluid d-flex flex-column p-5">
+        <div class="container-fluid d-flex flex-row pb-3">
+            <img src="{% static 'img/placeholder.jpg' %}" alt="placeholder" class="img-fluid">
+            <div class="container p-5">
+                <h2>L’impact de l’Homme sur le climat</h2>
+                <p>
+                    L'impact de l'homme sur le climat est indéniable et profondément significatif. Les activités humaines,
+                    notamment la combustion massive de combustibles fossiles, la déforestation et l'industrialisation,
+                    libèrent d'énormes quantités de gaz à effet de serre dans l'atmosphère.
+                    <br><br>
+                    Ces gaz, tels que le dioxyde de carbone (CO2) et le méthane (CH4), créent une couche isolante qui retient la chaleur du soleil,
+                    provoquant ainsi le réchauffement climatique. Les conséquences de cette perturbation climatique sont multiples :
+                    des événements météorologiques extrêmes tels que les ouragans et les vagues de chaleur,
+                    des modifications des régimes de précipitations, la fonte des glaciers et des calottes glaciaires,
+                    et des impacts dévastateurs sur les écosystèmes et la biodiversité.
+                    <br><br>
+                    En prenant conscience de cette influence néfaste, il devient impératif d'adopter des pratiques durables,
+                    de réduire les émissions de gaz à effet de serre et de promouvoir des solutions respectueuses de l'environnement
+                    pour atténuer les effets du changement climatique.
+                </p>
+            </div>
+        </div>
+
+        <div class="container-fluid d-flex flex-row pt-3">
+            <div class="container p-5">
+                <h2>L’impact de l’Homme sur le climat</h2>
+                <p>
+                    L'impact de l'homme sur le climat est indéniable et profondément significatif. Les activités humaines,
+                    notamment la combustion massive de combustibles fossiles, la déforestation et l'industrialisation,
+                    libèrent d'énormes quantités de gaz à effet de serre dans l'atmosphère.
+                    <br><br>
+                    Ces gaz, tels que le dioxyde de carbone (CO2) et le méthane (CH4), créent une couche isolante qui retient la chaleur du soleil,
+                    provoquant ainsi le réchauffement climatique. Les conséquences de cette perturbation climatique sont multiples :
+                    des événements météorologiques extrêmes tels que les ouragans et les vagues de chaleur,
+                    des modifications des régimes de précipitations, la fonte des glaciers et des calottes glaciaires,
+                    et des impacts dévastateurs sur les écosystèmes et la biodiversité.
+                    <br><br>
+                    En prenant conscience de cette influence néfaste, il devient impératif d'adopter des pratiques durables,
+                    de réduire les émissions de gaz à effet de serre et de promouvoir des solutions respectueuses de l'environnement
+                    pour atténuer les effets du changement climatique.
+                </p>
+            </div>
+            <img src="{% static 'img/placeholder.jpg' %}" alt="placeholder" class="img-fluid">
+        </div>
+    </div>
+
+    <div class="card d-flex bg-dark">
+        <div class="card-body pt-5 pb-5">
+            <h1 class="card-title">Comment réduire son impact sur le climat</h1>
+            <p class="card-text">Le plus simple pour réduire ses émissions est déja d’etre au courrant de notre impact </p>
+            <a href="http://localhost:63342/n2i-2023-tougaougweb/pageConsequence.html?_ijt=uvc2v38mpk5jstt674sgco7r8f#" class="btn btn-primary text-dark">Calculer votre impact</a>
+        </div>
+    </div>
 {% endblock %}
