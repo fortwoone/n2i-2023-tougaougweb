@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center-md">
+        <div class="col-md-12 ">
+            <h1 class="text-center title">Question 22 </h1>
+            <p class="text-sm font-weight-bold mt-4">{% lorem 1 b random %}</p>
+        </div>
+    </div>
+    
+    <div class="row justify-content-center-md ">
+        <div class="col-md-6 text-center mt-5">
+            <button  class="btn btn-primary btn-lg active w-100 h-100" role="button" aria-pressed="true">{% lorem 5 w random %}</button>
+        </div>
+        <div class="col-md-5 text-center mt-5">
+            <a  class="btn btn-primary btn-lg active w-100 h-100" role="button" aria-pressed="true">{% lorem 5 w random %}</a>
+        </div>
+    </div>
+
+    <div class="row justify-content-center-md ">
+        <div class="col-md-6 text-center mt-5">
+            <button  class="btn btn-primary btn-lg active w-100 h-100" role="button" aria-pressed="true">{% lorem 5 w random %}</button>
+        </div>
+        <div class="col-md-5 text-center mt-5">
+            <a  class="btn btn-primary btn-lg active w-100 h-100" role="button" aria-pressed="true">{% lorem 5 w random %}</a>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
