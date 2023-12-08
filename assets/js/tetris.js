@@ -158,11 +158,12 @@ function placeTetromino() {
     let clears = 0; // Number of row clears with the tetromino
 
     // check for line clears starting from the bottom and working our way up
-    for (let row = playfield.length - 1; row >= 0; ) {
+    for (let row = playfield.length - water.row_delta - 1; row >= 0; ) {
         if (playfield[row].every(cell => !!cell)) {
             clears++;
             lines_cleared++;
             cleared_until_level++; // Increment that to increase the level every 10 lines
+            water.tetromino_count = 0; // Reset the water rising counter if at least one line has been cleared
             // drop every row above this one
             for (let r = row; r >= 0; r--) {
                 for (let c = 0; c < playfield[r].length; c++) {
@@ -299,7 +300,38 @@ let rAF = null;  // keep track of the animation frame so we can cancel it
 let gameOver = false;
 down = false;
 
+class Water{
+    constructor() {
+        this.height = 8;
+        this.width = 320;
+        this.row_delta = 0;
+        this.tetromino_count = 0;
+    }
 
+    reset(){
+        this.height = 8;
+        this.row_delta = 320;
+        this.row_delta = 0;
+        this.tetromino_count = 0;
+    }
+
+    rise_water(){
+        this.row_delta++;
+        this.tetromino_count = 0;
+        this.height += 32;
+
+        for (let r = 1; r < 19; r++){
+            playfield[r-1] = playfield[r];
+        }
+    }
+
+    render_water(){
+        context.fillStyle = "#0DCAF07F";
+        context.fillRect(0, 640-this.height, 320, this.height);
+    }
+}
+
+let water = new Water();
 
 // Pad an object from the left using another string.
 function pad(pad, str) {
@@ -338,11 +370,15 @@ function loop() {
     // draw the active tetromino
     if (tetromino) {
         if (down) {
-            for (i = tetromino.row; i < 20; i++){
+            for (let i = tetromino.row; i < 20; i++){
                 console.log("down");
                 if (!isValidMove(tetromino.matrix, i, tetromino.col)) {
                     tetromino.row = i-1;
+                    water.tetromino_count++;
                     score += placeTetromino();
+                    if (water.tetromino_count >= 6){
+                        water.rise_water();
+                    }
                     break;
                 }
             }
@@ -357,13 +393,16 @@ function loop() {
         // if time passed since prevTime is greater than 35ms
         if (time - prevTime > LEVEL_RHYTHM_DELAYS[level-1]) {
             prevTime = time;
-            // rhythm.play().then(x => console.log("Play"));
             tetromino.row++;
             count = 0;
 
             // place piece if it runs into anything
             if (!isValidMove(tetromino.matrix, tetromino.row, tetromino.col)) {
                 tetromino.row--;
+                water.tetromino_count++;
+                if (water.tetromino_count >= 6){
+                    water.rise_water();
+                }
                 score += placeTetromino();
             }
         }
@@ -380,6 +419,7 @@ function loop() {
             }
         }
     }
+    water.render_water();
 }
 
 
@@ -415,13 +455,20 @@ document.addEventListener('keydown', function(e) {
             console.log("down");
             if (!isValidMove(tetromino.matrix, i, tetromino.col)) {
                 tetromino.row = i-1;
+                water.tetromino_count++;
                 score += placeTetromino();
+                if (water.tetromino_count >= 6){
+                    water.rise_water();
+                }
             }
         }
         if (!isValidMove(tetromino.matrix, row, tetromino.col)) {
             tetromino.row = row - 1;
-//
+            water.tetromino_count++;
             score += placeTetromino();
+            if (water.tetromino_count >= 6){
+                water.rise_water();
+            }
             return;
         }
 
@@ -450,7 +497,10 @@ function reset(){
 
     rAF = requestAnimationFrame(loop);
     score = 0;
-    // TODO : augmenter la vitesse et le rythme au fil du jeu
+    level = 1;
+    actual_level = 1;
+    lines_cleared = 0;
+    cleared_until_level = 0;
     tetris.play().then(x => console.log("Playing the OST"));
     console.log("play");
     gameOver = false;
